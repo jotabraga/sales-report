@@ -1,22 +1,19 @@
-import express from "express";
+import { ExpressAdapter } from "./infrastructure/httpServer/ExpressAdapter";
 import { SalesReportController } from "./entrypoints/SellersController";
 import { PublishSalesReportJob } from "./application/useCases/PublishSalesReport";
 
-const app = express();
+const httpServer = new ExpressAdapter();
 
-app.use(express.json());
 const publishSalesReportJob = new PublishSalesReportJob();
 const sellersController = new SalesReportController(publishSalesReportJob);
 
-app.get("/health", (_req, res) => {
-  res.status(200).json({ status: "UP" });
+httpServer.register("get", "/health", async () => {
+  return { statusCode: 200, body: { status: "UP" } };
 });
 
-app.get("/sales-report/:id", (req, res) => {
-  {
-    const { id } = req.params;
-    sellersController.publish(req, res);
-  }
+httpServer.register("get", "/sales-report/:id", async (params, _body) => {
+  const { id } = params;
+  return sellersController.publish(id);
 });
 
-export default app;
+export default httpServer;
