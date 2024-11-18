@@ -1,4 +1,4 @@
-import { BrokerClient } from "../../ports/broker/BrokerClient";
+import { BrokerClient } from "../../ports/brokerClient/BrokerClient";
 import { Seller } from "../../domain/Seller";
 
 export class PublishSellerMessageUseCase {
