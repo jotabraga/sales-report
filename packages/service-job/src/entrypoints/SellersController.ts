@@ -1,10 +1,10 @@
-import { PublishSalesReportJob } from "../application/useCases/PublishSalesReport";
+import { SellerPublisherJob } from "../application/jobs/SellerPublisherJob";
 
 export class SalesReportController {
-  constructor(private readonly publishSalesReportJob: PublishSalesReportJob) {}
+  constructor(private readonly sellerPublisherJob: SellerPublisherJob) {}
 
-  async publish(id: number): Promise<any> {
-    const response = await this.publishSalesReportJob.execute();
+  async publish(): Promise<any> {
+    const response = await this.sellerPublisherJob.execute();
     return response;
   }
 }
