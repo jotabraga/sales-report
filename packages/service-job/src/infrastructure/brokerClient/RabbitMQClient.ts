@@ -1,5 +1,5 @@
 import amqp, { Connection, Channel } from "amqplib";
-import { BrokerClient } from "../../ports/broker/BrokerClient";
+import { BrokerClient } from "../../ports/brokerClient/BrokerClient";
 
 export class RabbitMQClient implements BrokerClient {
   private connection: Connection | null = null;
