@@ -4,7 +4,7 @@ import { SellerPublisherJob } from "../application/jobs/SellerPublisherJob";
 import { AxiosAdapter } from "../infrastructure/httpClient/AxiosAdapter";
 import { PublishSellerMessageUseCase } from "../application/useCases/PublishSellerMessageUseCase";
 import { RabbitMQClient } from "../infrastructure/brokerClient/RabbitMQClient";
-import { registerSellerRoutes } from "../routes/salesRoutes";
+import { registerSaleReportRoutes } from "../routes/salesRoutes";
 
 interface ServerConfig {
   httpServer: ExpressAdapter;
@@ -35,7 +35,7 @@ export function configureServer(): ServerConfig {
 
   const httpServer = new ExpressAdapter();
 
-  registerSellerRoutes(httpServer, sellersController);
+  registerSaleReportRoutes(httpServer, sellersController);
 
   return { httpServer, sellersController };
 }

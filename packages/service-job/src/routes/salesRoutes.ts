@@ -1,7 +1,7 @@
 import { SalesReportController } from "../entrypoints/SellersController";
 import { HttpServer } from "../ports/httpServer/HttpServer";
 
-export const registerSellerRoutes = (
+export const registerSaleReportRoutes = (
   httpServer: HttpServer,
   sellersController: SalesReportController
 ) => {
