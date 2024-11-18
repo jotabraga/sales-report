@@ -1,6 +1,6 @@
 import { PublishSellerMessageUseCase } from "../useCases/PublishSellerMessageUseCase";
 import { HttpClient } from "../../ports/httpClient/HttpClient";
-import { Seller } from "../../domain/Seller";
+import { SellerDTO } from "../../ports/outbound/SellersGatewayInterface";
 
 export class SellerPublisherJob {
   constructor(
@@ -10,10 +10,11 @@ export class SellerPublisherJob {
   ) {}
 
   async execute(): Promise<void> {
-    const sellers = await this.httpClient.get<Seller[]>(this.sellersApiBaseUrl);
+    const sellers = await this.httpClient.get<SellerDTO[]>(
+      this.sellersApiBaseUrl
+    );
 
     for (const seller of sellers) {
-      console.log("here", seller);
       await this.publishSellerMessageUseCase.execute(seller);
     }
   }

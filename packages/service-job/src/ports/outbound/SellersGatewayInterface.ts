@@ -1,9 +1,9 @@
 export interface SellersGatewayInterface {
-  getSellerById(id: string): Promise<Seller>;
-  getAllSellers(): Promise<Seller[]>;
+  getSellerById(id: string): Promise<SellerDTO>;
+  getAllSellers(): Promise<SellerDTO[]>;
 }
 
-export interface Seller {
+export interface SellerDTO {
   id: string;
   nome: string;
   telefone: string;

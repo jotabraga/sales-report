@@ -1,6 +1,6 @@
 import {
   SellersGatewayInterface,
-  Seller,
+  SellerDTO,
 } from "../../ports/outbound/SellersGatewayInterface";
 import { HttpClient } from "../../ports/httpClient/HttpClient";
 
@@ -13,11 +13,11 @@ export class SellersGateway implements SellersGatewayInterface {
     this.httpClient = httpClient;
   }
 
-  async getSellerById(id: string): Promise<Seller> {
-    return this.httpClient.get<Seller>(`${this.baseUrl}/sellers/${id}`);
+  async getSellerById(id: string): Promise<SellerDTO> {
+    return this.httpClient.get<SellerDTO>(`${this.baseUrl}/sellers/${id}`);
   }
 
-  async getAllSellers(): Promise<Seller[]> {
-    return this.httpClient.get<Seller[]>(`${this.baseUrl}/sellers`);
+  async getAllSellers(): Promise<SellerDTO[]> {
+    return this.httpClient.get<SellerDTO[]>(`${this.baseUrl}/sellers`);
   }
 }
