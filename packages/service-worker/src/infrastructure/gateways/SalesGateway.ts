@@ -13,8 +13,10 @@ export class SalesGateway implements SalesGatewayInterface {
     this.httpClient = httpClient;
   }
 
-  async getSaleById(id: string): Promise<SaleDTO> {
-    return this.httpClient.get<SaleDTO>(`${this.baseUrl}/vendas/${id}`);
+  async getSaleBySellerId(id: string): Promise<SaleDTO[]> {
+    return this.httpClient.get<SaleDTO[]>(
+      `${this.baseUrl}/vendas?vendedor_id=${id}`
+    );
   }
 
   async getAllSales(): Promise<SaleDTO[]> {

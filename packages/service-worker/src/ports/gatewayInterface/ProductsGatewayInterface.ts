@@ -1,5 +1,5 @@
 export interface ProductsGatewayInterface {
-  getProductById(id: string): Promise<ProductDTO>;
+  getProductsBySellerId(id: string): Promise<ProductDTO[]>;
   getAllProducts(): Promise<ProductDTO[]>;
 }
 

@@ -13,8 +13,10 @@ export class ProductsGateway implements ProductsGatewayInterface {
     this.httpClient = httpClient;
   }
 
-  async getProductById(id: string): Promise<ProductDTO> {
-    return this.httpClient.get<ProductDTO>(`${this.baseUrl}/produtos/${id}`);
+  async getProductsBySellerId(id: string): Promise<ProductDTO[]> {
+    return this.httpClient.get<ProductDTO[]>(
+      `${this.baseUrl}/produtos?vendedor_id=${id}`
+    );
   }
 
   async getAllProducts(): Promise<ProductDTO[]> {

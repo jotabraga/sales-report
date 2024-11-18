@@ -1,5 +1,5 @@
 export interface SalesGatewayInterface {
-  getSaleById(id: string): Promise<SaleDTO>;
+  getSaleBySellerId(id: string): Promise<SaleDTO[]>;
   getAllSales(): Promise<SaleDTO[]>;
 }
 
