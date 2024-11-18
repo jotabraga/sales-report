@@ -1,6 +1,6 @@
 import { PublishSellerMessageUseCase } from "../useCases/PublishSellerMessageUseCase";
 import { HttpClient } from "../../ports/httpClient/HttpClient";
-import { SellerDTO } from "../../ports/outbound/SellersGatewayInterface";
+import { SellerDTO } from "../../ports/gatewayInterface/SellersGatewayInterface";
 
 export class SellerPublisherJob {
   constructor(

@@ -1,7 +1,7 @@
 import {
   SellersGatewayInterface,
   SellerDTO,
-} from "../../ports/outbound/SellersGatewayInterface";
+} from "../../ports/gatewayInterface/SellersGatewayInterface";
 import { HttpClient } from "../../ports/httpClient/HttpClient";
 
 export class SellersGateway implements SellersGatewayInterface {
