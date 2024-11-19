@@ -14,15 +14,16 @@ App for get sales report for sellers
 
 - [x] Message broker (RabbitMQ)
 - [x] Get sales report for sellers
-- [x] Save sale report in csv file
+- [x] Save sale report in csv file in ./packages/service-worker/reports
 - [x] Service Job (ports and adapters architecture based on Nodejs)
 - [x] Service Worker (ports and adapters architecture based on Nodejs)
 - [x] Docker file and compose for entire application
 - [x] Monorepo structure
+- [x] Tests
 
 ### Future improvements 🔮
 
-- [ ] Tests
+- [ ] Tests coverage
 - [ ] Kubernetes Event driven Autoscaling
 
 ## Installation

@@ -5,7 +5,7 @@ import {
   validProducts,
   validCustomerA,
   validCustomerB,
-} from "../mocks/useCases";
+} from "../mocks/salesData";
 
 describe("ConsolidateSaleReportDataUseCase test suite", () => {
   it("should consolidate sales, products, and customers for valid data", async () => {
