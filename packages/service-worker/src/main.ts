@@ -1,11 +1,12 @@
-import httpServer from "./server";
+import initializeServer from "./server";
 import { config } from "./config/env";
 
 const port = config.port;
 
 async function bootstrap() {
   try {
-    httpServer.listen(port);
+    const httpServer = await initializeServer();
+    httpServer.listen(Number(port));
   } catch (error: any) {
     console.error("Failed to start the application:", error.message);
     process.exit(1);

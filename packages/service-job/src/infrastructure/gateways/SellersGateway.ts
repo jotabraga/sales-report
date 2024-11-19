@@ -14,10 +14,10 @@ export class SellersGateway implements SellersGatewayInterface {
   }
 
   async getSellerById(id: string): Promise<SellerDTO> {
-    return this.httpClient.get<SellerDTO>(`${this.baseUrl}/sellers/${id}`);
+    return this.httpClient.get<SellerDTO>(`${this.baseUrl}/vendedores/${id}`);
   }
 
   async getAllSellers(): Promise<SellerDTO[]> {
-    return this.httpClient.get<SellerDTO[]>(`${this.baseUrl}/sellers`);
+    return this.httpClient.get<SellerDTO[]>(`${this.baseUrl}/vendedores`);
   }
 }
