@@ -1,5 +1,7 @@
+import { ExpressAdapter } from "./infrastructure/httpServer/ExpressAdapter";
 import { configureServer } from "./config/serverConfig";
 
-const { httpServer } = configureServer();
-
-export default httpServer;
+export default async function initializeServer() {
+  const { httpServer } = await configureServer();
+  return httpServer as ExpressAdapter;
+}

@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+
 dotenv.config();
 
 export const config = {
@@ -6,9 +7,3 @@ export const config = {
   rabbitMqUrl: process.env.RABBITMQ_URL || "",
   apiBaseUrl: process.env.API_BASE_URL || "",
 };
-
-const isMissingMandatoryVars = !config.rabbitMqUrl || !config.apiBaseUrl;
-
-if (isMissingMandatoryVars) {
-  throw new Error("Missing required environment variables");
-}

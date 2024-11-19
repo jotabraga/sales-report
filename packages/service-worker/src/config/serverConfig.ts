@@ -18,12 +18,19 @@ interface ServerConfig {
   consumeBrokerJob: ConsumeBrokerJob;
 }
 
-export function configureServer(): ServerConfig {
+export async function configureServer(): Promise<ServerConfig> {
   const rabbitMqUrl = config.rabbitMqUrl;
   const apiBaseUrl = config.apiBaseUrl;
 
   const httpClient = new AxiosAdapter();
   const brokerClient = new RabbitMQClient(rabbitMqUrl);
+  try {
+    await brokerClient.connect();
+    console.log("RabbitMQ connected successfully.");
+  } catch (error: any) {
+    console.error("Failed to connect to RabbitMQ:", error.message);
+    process.exit(1);
+  }
   const salesGateway = new SalesGateway(apiBaseUrl, httpClient);
   const productsGateway = new ProductsGateway(apiBaseUrl, httpClient);
   const customersGateway = new CustomersGateway(apiBaseUrl, httpClient);
@@ -54,7 +61,7 @@ export function configureServer(): ServerConfig {
   const httpServer = new ExpressAdapter();
   registerHealthRoute(httpServer);
 
-  consumeBrokerJob.execute("sellers_topic").catch((error) => {
+  consumeBrokerJob.execute("sellers-topic").catch((error) => {
     console.error(`Failed to start ConsumeBrokerJob: ${error.message}`);
   });
 
