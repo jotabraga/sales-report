@@ -1,10 +1,10 @@
-import { ProductsGateway } from "../../infrastructure/gateways/ProductsGateway";
+import { ProductsGatewayInterface } from "../../ports/gatewayInterface/ProductsGatewayInterface";
 import { ProductDTO } from "../../ports/gatewayInterface/ProductsGatewayInterface";
 
 export class FetchProductsBySellerIdUseCase {
-  constructor(private readonly productsGateway: ProductsGateway) {}
+  constructor(private readonly productsGateway: ProductsGatewayInterface) {}
 
-  async execute(productId: string): Promise<ProductDTO[]> {
-    return this.productsGateway.getProductsBySellerId(productId);
+  async execute(sellerId: string): Promise<ProductDTO[]> {
+    return this.productsGateway.getProductsBySellerId(sellerId);
   }
 }

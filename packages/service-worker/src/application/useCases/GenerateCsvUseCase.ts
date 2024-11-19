@@ -25,7 +25,6 @@ export class GenerateCsvUseCase {
         ],
       });
 
-      // Escrever os registros no arquivo CSV
       await csvWriter.writeRecords(reportData);
       logger.info(
         `CSV file generated: ${reportsPath}/vendedor_${vendedorId}.csv`
