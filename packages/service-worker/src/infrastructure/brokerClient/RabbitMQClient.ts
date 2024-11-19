@@ -22,9 +22,9 @@ export class RabbitMQClient implements BrokerClient {
       throw new Error("RabbitMQClient is not connected. Call connect() first.");
     }
 
-    await this.channel.assertQueue(topic); // Assegura que a fila existe
+    await this.channel.assertQueue(topic);
     this.channel.sendToQueue(topic, Buffer.from(JSON.stringify(message)), {
-      persistent: true, // Garante que a mensagem será salva no disco caso o broker caia
+      persistent: true,
     });
   }
 
@@ -36,17 +36,19 @@ export class RabbitMQClient implements BrokerClient {
       throw new Error("RabbitMQClient is not connected. Call connect() first.");
     }
 
-    await this.channel.assertQueue(topic); // Assegura que a fila existe
+    await this.channel.assertQueue(topic);
+
+    this.channel.prefetch(1);
 
     this.channel.consume(topic, async (msg) => {
       if (msg) {
         const content = JSON.parse(msg.content.toString());
         try {
-          await handler(content); // Processa a mensagem
-          this.channel!.ack(msg); // Confirma o processamento da mensagem
+          await handler(content);
+          this.channel!.ack(msg);
         } catch (err) {
           console.error("Failed to process message:", err);
-          this.channel!.nack(msg); // Rejeita a mensagem para reprocessamento
+          this.channel!.nack(msg);
         }
       }
     });

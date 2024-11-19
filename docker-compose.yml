@@ -1,18 +1,38 @@
-version: '3.8'
+version: "3.8"
 
 services:
+  service-worker:
+    build:
+      context: .
+      dockerfile: ./packages/service-worker/Dockerfile
+    container_name: service-worker
+    ports:
+      - "3001:3001"
+    depends_on:
+      - rabbitmq
+    environment:
+      - PORT=3001
+      - RABBITMQ_URL=amqp://user:password@rabbitmq:5672
+      - API_BASE_URL=https://66ec84422b6cf2b89c5eabf1.mockapi.io/piercloud/api/v1
+    command: ["sh", "-c", "./wait-for rabbitmq:5672 -- yarn workspace service-worker dev"]
+    # deploy: This option would horizontally scale workers to handle multiple messages
+    #   replicas: 3
+
+
   service-job:
     build:
       context: .
       dockerfile: ./packages/service-job/Dockerfile
     container_name: service-job
-    environment:
-      RABBITMQ_URL: amqp://user:password@rabbitmq:5672
-      SELLERS_API_BASE_URL: https://66ec84422b6cf2b89c5eabf1.mockapi.io/piercloud/api/v1/vendedores
     ports:
       - "3000:3000"
     depends_on:
       - rabbitmq
+    environment:
+      - PORT=3000
+      - API_BASE_URL=https://66ec84422b6cf2b89c5eabf1.mockapi.io/piercloud/api/v1
+      - RABBITMQ_URL=amqp://user:password@rabbitmq:5672
+    command: ["sh", "-c", "./wait-for rabbitmq:5672 -- yarn workspace service-job dev"]
 
   rabbitmq:
     image: rabbitmq:3-management

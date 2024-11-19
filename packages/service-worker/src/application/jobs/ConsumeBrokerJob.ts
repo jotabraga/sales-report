@@ -20,7 +20,7 @@ export class ConsumeBrokerJob {
         logger.info(`Received message for seller ID: ${seller.id}`);
 
         const consolidatedData =
-          await this.consolidateSaleReportDataUseCase.execute(seller.id);
+          await this.consolidateSaleReportDataUseCase.execute(seller);
 
         await this.generateCsvUseCase.execute(seller.id, consolidatedData);
 
