@@ -1,6 +1,7 @@
 import { FetchSalesBySellerIdUseCase } from "./FetchSalesBySellerIdUseCase";
 import { FetchProductsBySellerIdUseCase } from "./FetchProductsBySellerIdUseCase";
 import { FetchCustomerByIdUseCase } from "./FetchCustomersByIdUseCase";
+import { SellerDTO } from "../../ports/gatewayInterface/SellersGatewayInterface";
 
 export class ConsolidateSaleReportDataUseCase {
   constructor(
@@ -9,10 +10,10 @@ export class ConsolidateSaleReportDataUseCase {
     private readonly fetchCustomerByIdUseCase: FetchCustomerByIdUseCase
   ) {}
 
-  async execute(sellerId: string) {
+  async execute(seller: SellerDTO) {
     const [sales, products] = await Promise.all([
-      this.fetchSalesBySellerIdUseCase.execute(sellerId),
-      this.fetchProductsBySellerIdUseCase.execute(sellerId),
+      this.fetchSalesBySellerIdUseCase.execute(seller.id),
+      this.fetchProductsBySellerIdUseCase.execute(seller.id),
     ]);
 
     const customerIds = [...new Set(sales.map((sale) => sale.cliente_id))];
@@ -25,15 +26,16 @@ export class ConsolidateSaleReportDataUseCase {
       const customer = customers.find((c) => c.id === sale.cliente_id);
 
       return {
-        sellerId,
-        productId: product?.id,
-        productName: product?.nome,
-        productPrice: product?.preco,
-        productSku: product?.sku,
+        sellerId: seller.id,
+        SellerName: seller.nome,
         customerId: customer?.id,
         customerName: customer?.nome,
         customerPhone: customer?.telefone,
         customerEmail: customer?.email,
+        productId: product?.id,
+        productName: product?.nome,
+        productPrice: product?.preco,
+        productSku: product?.sku,
       };
     });
   }
