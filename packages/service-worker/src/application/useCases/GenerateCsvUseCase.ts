@@ -1,5 +1,6 @@
 import { createObjectCsvWriter } from "csv-writer";
 import fs from "fs/promises";
+import { logger } from "../../infrastructure/utils/Logger";
 
 export class GenerateCsvUseCase {
   async execute(vendedorId: string, reportData: any[]) {
@@ -26,11 +27,13 @@ export class GenerateCsvUseCase {
 
       // Escrever os registros no arquivo CSV
       await csvWriter.writeRecords(reportData);
-      console.log(
-        `Arquivo CSV gerado: ${reportsPath}/vendedor_${vendedorId}.csv`
+      logger.info(
+        `CSV file generated: ${reportsPath}/vendedor_${vendedorId}.csv`
       );
     } catch (error: any) {
-      console.error(`Erro ao gerar CSV: ${error.message}`);
+      logger.error(
+        `There is an error in generate file to seller: ${vendedorId} [Error]: ${error.message}`
+      );
       throw error;
     }
   }

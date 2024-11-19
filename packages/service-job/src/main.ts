@@ -1,5 +1,4 @@
 import httpServer from "./server";
-import dotenv from "dotenv";
 import { config } from "./config/env";
 
 const port = config.port;

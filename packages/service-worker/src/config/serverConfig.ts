@@ -12,6 +12,7 @@ import { ConsolidateSaleReportDataUseCase } from "../application/useCases/Consol
 import { registerHealthRoute } from "../routes/healthRoute";
 import { config } from "./env";
 import { GenerateCsvUseCase } from "../application/useCases/GenerateCsvUseCase";
+import { logger } from "../infrastructure/utils/Logger";
 
 interface ServerConfig {
   httpServer: ExpressAdapter;
@@ -26,9 +27,9 @@ export async function configureServer(): Promise<ServerConfig> {
   const brokerClient = new RabbitMQClient(rabbitMqUrl);
   try {
     await brokerClient.connect();
-    console.log("RabbitMQ connected successfully.");
+    logger.info("RabbitMQ connected successfully.");
   } catch (error: any) {
-    console.error("Failed to connect to RabbitMQ:", error.message);
+    logger.error("Failed to connect to RabbitMQ:", error.message);
     process.exit(1);
   }
   const salesGateway = new SalesGateway(apiBaseUrl, httpClient);
@@ -62,7 +63,7 @@ export async function configureServer(): Promise<ServerConfig> {
   registerHealthRoute(httpServer);
 
   consumeBrokerJob.execute("sellers-topic").catch((error) => {
-    console.error(`Failed to start ConsumeBrokerJob: ${error.message}`);
+    logger.error(`Failed to start ConsumeBrokerJob: ${error.message}`);
   });
 
   return { httpServer, consumeBrokerJob };

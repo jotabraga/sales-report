@@ -38,7 +38,7 @@ export class RabbitMQClient implements BrokerClient {
 
     await this.channel.assertQueue(topic);
 
-    this.channel.prefetch(1);
+    this.channel.prefetch(4);
 
     this.channel.consume(topic, async (msg) => {
       if (msg) {
