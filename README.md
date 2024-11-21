@@ -52,6 +52,12 @@ $ docker compose up --build
 
 ## Running the app locally
 
+### Install dependencies
+
+```bash
+$ yarn install
+```
+
 ### Add env variables
 
 ```bash
@@ -65,13 +71,13 @@ $ cd packages/service-job && cp .env.example .env
 ### build and run service-job
 
 ```bash
-$ cd packages/service-job && yarn build && yarn dev
+$ cd packages/service-job && npm run build && npm run dev
 ```
 
 ### build and run service-worker
 
 ```bash
-$ cd packages/service-worker && yarn build && yarn dev
+$ cd packages/service-worker && npm run build && npm run dev
 ```
 
 ## App architecture
